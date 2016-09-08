@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD19986A1D7CFD3200C936DE /* RedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1998691D7CFD3200C936DE /* RedViewController.swift */; };
+		DD19986C1D7CFD3F00C936DE /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD19986B1D7CFD3F00C936DE /* YellowViewController.swift */; };
+		DDE9D8A11D7A4CA900935EAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE9D8A01D7A4CA900935EAB /* AppDelegate.swift */; };
+		DDE9D8A61D7A4CA900935EAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE9D8A41D7A4CA900935EAB /* Main.storyboard */; };
+		DDE9D8A81D7A4CA900935EAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDE9D8A71D7A4CA900935EAB /* Assets.xcassets */; };
+		DDE9D8AB1D7A4CA900935EAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DDE9D8A91D7A4CA900935EAB /* LaunchScreen.storyboard */; };
+		DDE9D8B31D7A515200935EAB /* JLOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE9D8B21D7A515200935EAB /* JLOverlayViewController.swift */; };
+		DDE9D8B51D7A55D800935EAB /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDE9D8B41D7A55D800935EAB /* BlueViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DD1998691D7CFD3200C936DE /* RedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedViewController.swift; sourceTree = "<group>"; };
+		DD19986B1D7CFD3F00C936DE /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		DDE9D89D1D7A4CA900935EAB /* JLOverlayViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLOverlayViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDE9D8A01D7A4CA900935EAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DDE9D8A51D7A4CA900935EAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DDE9D8A71D7A4CA900935EAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DDE9D8AA1D7A4CA900935EAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DDE9D8AC1D7A4CA900935EAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDE9D8B21D7A515200935EAB /* JLOverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLOverlayViewController.swift; sourceTree = "<group>"; };
+		DDE9D8B41D7A55D800935EAB /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DDE9D89A1D7A4CA900935EAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DDE9D8941D7A4CA900935EAB = {
+			isa = PBXGroup;
+			children = (
+				DDE9D89F1D7A4CA900935EAB /* JLOverlayViewController */,
+				DDE9D89E1D7A4CA900935EAB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDE9D89E1D7A4CA900935EAB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDE9D89D1D7A4CA900935EAB /* JLOverlayViewController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDE9D89F1D7A4CA900935EAB /* JLOverlayViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DDE9D8A01D7A4CA900935EAB /* AppDelegate.swift */,
+				DDE9D8B21D7A515200935EAB /* JLOverlayViewController.swift */,
+				DDE9D8B41D7A55D800935EAB /* BlueViewController.swift */,
+				DD1998691D7CFD3200C936DE /* RedViewController.swift */,
+				DD19986B1D7CFD3F00C936DE /* YellowViewController.swift */,
+				DDE9D8A41D7A4CA900935EAB /* Main.storyboard */,
+				DDE9D8A71D7A4CA900935EAB /* Assets.xcassets */,
+				DDE9D8A91D7A4CA900935EAB /* LaunchScreen.storyboard */,
+				DDE9D8AC1D7A4CA900935EAB /* Info.plist */,
+			);
+			path = JLOverlayViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DDE9D89C1D7A4CA900935EAB /* JLOverlayViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDE9D8AF1D7A4CA900935EAB /* Build configuration list for PBXNativeTarget "JLOverlayViewController" */;
+			buildPhases = (
+				DDE9D8991D7A4CA900935EAB /* Sources */,
+				DDE9D89A1D7A4CA900935EAB /* Frameworks */,
+				DDE9D89B1D7A4CA900935EAB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JLOverlayViewController;
+			productName = JLOverlayViewController;
+			productReference = DDE9D89D1D7A4CA900935EAB /* JLOverlayViewController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DDE9D8951D7A4CA900935EAB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = JonasLuebbers;
+				TargetAttributes = {
+					DDE9D89C1D7A4CA900935EAB = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = DDE9D8981D7A4CA900935EAB /* Build configuration list for PBXProject "JLOverlayViewController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DDE9D8941D7A4CA900935EAB;
+			productRefGroup = DDE9D89E1D7A4CA900935EAB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDE9D89C1D7A4CA900935EAB /* JLOverlayViewController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DDE9D89B1D7A4CA900935EAB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDE9D8AB1D7A4CA900935EAB /* LaunchScreen.storyboard in Resources */,
+				DDE9D8A81D7A4CA900935EAB /* Assets.xcassets in Resources */,
+				DDE9D8A61D7A4CA900935EAB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDE9D8991D7A4CA900935EAB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD19986A1D7CFD3200C936DE /* RedViewController.swift in Sources */,
+				DDE9D8B31D7A515200935EAB /* JLOverlayViewController.swift in Sources */,
+				DDE9D8B51D7A55D800935EAB /* BlueViewController.swift in Sources */,
+				DDE9D8A11D7A4CA900935EAB /* AppDelegate.swift in Sources */,
+				DD19986C1D7CFD3F00C936DE /* YellowViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		DDE9D8A41D7A4CA900935EAB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDE9D8A51D7A4CA900935EAB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DDE9D8A91D7A4CA900935EAB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DDE9D8AA1D7A4CA900935EAB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DDE9D8AD1D7A4CA900935EAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DDE9D8AE1D7A4CA900935EAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DDE9D8B01D7A4CA900935EAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JLOverlayViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonasluebbers.JLOverlayViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DDE9D8B11D7A4CA900935EAB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JLOverlayViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonasluebbers.JLOverlayViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDE9D8981D7A4CA900935EAB /* Build configuration list for PBXProject "JLOverlayViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDE9D8AD1D7A4CA900935EAB /* Debug */,
+				DDE9D8AE1D7A4CA900935EAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDE9D8AF1D7A4CA900935EAB /* Build configuration list for PBXNativeTarget "JLOverlayViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDE9D8B01D7A4CA900935EAB /* Debug */,
+				DDE9D8B11D7A4CA900935EAB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDE9D8951D7A4CA900935EAB /* Project object */;
+}

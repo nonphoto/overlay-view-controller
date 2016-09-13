@@ -17,6 +17,6 @@ class RedViewController: UIViewController {
     }
 
     @IBAction func buttonAction(sender: AnyObject) {
-        overlayViewController?.dismissSecondaryViewController()
+        overlayViewController?.dismissSecondaryViewControllerAnimated(true, completion: nil)
     }
 }

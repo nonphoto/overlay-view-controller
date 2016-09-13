@@ -97,7 +97,7 @@ class JLOverlayViewController: UIViewController {
 
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
 
-            NSLayoutConstraint(item: viewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: self.view.bounds.height).active = true
+            NSLayoutConstraint(item: viewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: 0).active = true
             NSLayoutConstraint(item: viewController.view, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0).active = true
             NSLayoutConstraint(item: viewController.view, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0).active = true
 
@@ -131,7 +131,7 @@ class JLOverlayViewController: UIViewController {
     }
 
     func deferSecondaryViewControllerAnimated(animated: Bool, completion: ((Bool) -> Void)?) {
-        if let secondaryViewController = self.secondaryViewController {
+        if self.secondaryViewController != nil {
             isSecondaryViewControllerDeferred = true
 
             UIView.animateWithDuration(
@@ -151,7 +151,7 @@ class JLOverlayViewController: UIViewController {
     }
 
     func restoreSecondaryViewControllerAnimated(animated: Bool, completion: ((Bool) -> Void)?) {
-        if let secondaryViewController = self.secondaryViewController {
+        if self.secondaryViewController != nil {
             isSecondaryViewControllerDeferred = false
 
             let secondaryViewControllerOffset = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
@@ -188,7 +188,7 @@ class JLOverlayViewController: UIViewController {
                 animations: {
                     self.primaryViewController.view.transform = CGAffineTransformIdentity
                     self.primaryViewController.view.alpha = 1
-                    self.primaryHeightConstraint.constant = self.view.bounds.height
+                    self.primaryHeightConstraint.constant = 0
 
                     self.secondaryTopConstraint.constant = self.view.bounds.height
 
@@ -243,7 +243,6 @@ class JLOverlayViewController: UIViewController {
         if let secondaryViewController = self.secondaryViewController {
             let offset = secondaryViewController.view.bounds.height * percentComplete
             secondaryTopConstraint.constant = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET + offset
-            print(percentComplete)
         }
     }
 }

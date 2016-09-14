@@ -97,7 +97,7 @@ class JLOverlayViewController: UIViewController {
 
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
 
-            NSLayoutConstraint(item: viewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: 0).active = true
+            NSLayoutConstraint(item: viewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: -Constants.TransitionConstants.PRESENTED_VIEW_OFFSET).active = true
             NSLayoutConstraint(item: viewController.view, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0).active = true
             NSLayoutConstraint(item: viewController.view, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0).active = true
 
@@ -214,9 +214,13 @@ class JLOverlayViewController: UIViewController {
             transitionPercentComplete = 0
         case .Changed:
             let translation = gestureRecognizer.translationInView(view)
-            let verticalTranslation = isSecondaryViewControllerDeferred ? translation.y + self.view.bounds.height - Constants.TransitionConstants.PRESENTED_VIEW_OFFSET : translation.y
-            let percentage = verticalTranslation / CGRectGetHeight(view.bounds);
-            updateTransition(percentage)
+            let percentage = translation.y / (self.view.bounds.height - (2 * Constants.TransitionConstants.PRESENTED_VIEW_OFFSET))
+            if isSecondaryViewControllerDeferred {
+                updateTransition(1 + percentage)
+            }
+            else {
+                updateTransition(percentage)
+            }
         case .Ended:
             if transitionPercentComplete > Constants.TransitionConstants.DISMISSAL_THRESHOLD {
                 deferSecondaryViewControllerAnimated(true, completion: nil)
@@ -240,9 +244,7 @@ class JLOverlayViewController: UIViewController {
         let alpha = targetAlpha + (1 - targetAlpha) * percentComplete
         primaryViewController.view.alpha = alpha
 
-        if let secondaryViewController = self.secondaryViewController {
-            let offset = secondaryViewController.view.bounds.height * percentComplete
-            secondaryTopConstraint.constant = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET + offset
-        }
+        let offset = (self.view.bounds.height - (2 * Constants.TransitionConstants.PRESENTED_VIEW_OFFSET)) * percentComplete
+        secondaryTopConstraint.constant = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET + offset
     }
 }

@@ -47,12 +47,20 @@ class JLOverlayViewController: UIViewController {
 
     private var primaryViewController: UIViewController!
     private var secondaryViewController: UIViewController?
+    private var deferredViewControllerBar: UINavigationBar?
 
     private var isSecondaryViewControllerDeferred = false
     private var transitionPercentComplete: CGFloat = 0.0
 
-    private var primaryHeightConstraint: NSLayoutConstraint!
-    private var secondaryTopConstraint: NSLayoutConstraint!
+    private var primaryPresentedHeightConstraint: NSLayoutConstraint!
+    private var primaryDismissedHeightConstraint: NSLayoutConstraint!
+
+    private var secondaryHeightConstraint: NSLayoutConstraint?
+    private var secondaryPresentedTopConstraint: NSLayoutConstraint?
+    private var secondaryDeferredTopConstraint: NSLayoutConstraint?
+    private var secondaryTransitionTopConstraint: NSLayoutConstraint?
+
+    private var barHeightConstraint: NSLayoutConstraint?
 
     var hasSecondaryViewController: Bool {
         get {
@@ -74,14 +82,30 @@ class JLOverlayViewController: UIViewController {
         primaryViewController.didMoveToParentViewController(self)
 
         primaryViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        primaryViewController.view.topAnchor.constraintEqualToAnchor(self.view.topAnchor).active = true
+        primaryViewController.view.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor).active = true
+        primaryViewController.view.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
+        primaryPresentedHeightConstraint = primaryViewController.view.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, constant: -Constants.TransitionConstants.PRESENTED_VIEW_OFFSET)
+        primaryDismissedHeightConstraint = primaryViewController.view.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor)
+        primaryDismissedHeightConstraint.active = true
+    }
 
-        NSLayoutConstraint(item: primaryViewController.view, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: primaryViewController.view, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: primaryViewController.view, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0).active = true
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
 
-        primaryHeightConstraint = NSLayoutConstraint(item: primaryViewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: 0)
-        primaryHeightConstraint.active = true
+    }
 
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        let regularOffset = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
+        let compactOffset = Constants.TransitionConstants.PRESENTED_VIEW_COMPACT_OFFSET
+        let offset = newCollection.verticalSizeClass == .Compact ? compactOffset : regularOffset
+
+        self.primaryPresentedHeightConstraint.constant = -offset
+        self.secondaryHeightConstraint?.constant = -offset
+        self.secondaryPresentedTopConstraint?.constant = offset
+        self.secondaryDeferredTopConstraint?.constant = -offset
+        self.barHeightConstraint?.constant = offset
     }
 
     func presentSecondaryViewController(viewController: UIViewController, animated: Bool, completion: ((Bool) -> Void)?) {
@@ -95,20 +119,41 @@ class JLOverlayViewController: UIViewController {
             gestureRecognizer.maximumNumberOfTouches = 1
             viewController.view.addGestureRecognizer(gestureRecognizer)
 
+            let regularOffset = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
+            let compactOffset = Constants.TransitionConstants.PRESENTED_VIEW_COMPACT_OFFSET
+            let offset = self.view.traitCollection.verticalSizeClass == .Compact ? compactOffset : regularOffset
+            let scale = Constants.TransitionConstants.PRESENTING_VIEW_SCALE
+            let alpha = Constants.TransitionConstants.PRESENTING_VIEW_ALPHA
+
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint(item: viewController.view, attribute: .Height, relatedBy: .Equal, toItem: self.view, attribute: .Height, multiplier: 1, constant: -Constants.TransitionConstants.PRESENTED_VIEW_OFFSET).active = true
-            NSLayoutConstraint(item: viewController.view, attribute: .Leading, relatedBy: .Equal, toItem: self.view, attribute: .Leading, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: viewController.view, attribute: .Trailing, relatedBy: .Equal, toItem: self.view, attribute: .Trailing, multiplier: 1, constant: 0).active = true
-
-            secondaryTopConstraint = NSLayoutConstraint(item: viewController.view, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1, constant: self.view.bounds.height)
-            secondaryTopConstraint.active = true
+            viewController.view.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor).active = true
+            viewController.view.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
+            secondaryHeightConstraint = viewController.view.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, constant: -offset)
+            secondaryHeightConstraint!.active = true
+            secondaryPresentedTopConstraint = viewController.view.topAnchor.constraintEqualToAnchor(self.view.topAnchor, constant: offset)
+            secondaryDeferredTopConstraint = viewController.view.topAnchor.constraintEqualToAnchor(self.view.bottomAnchor, constant: -offset)
+            secondaryTransitionTopConstraint = viewController.view.topAnchor.constraintEqualToAnchor(self.view.topAnchor, constant: self.view.bounds.height)
+            secondaryTransitionTopConstraint!.active = true
 
             self.view.layoutIfNeeded()
 
-            let secondaryViewControllerOffset = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
-            let primaryViewControllerScale = Constants.TransitionConstants.PRESENTING_VIEW_SCALE
-            let primaryViewControllerAlpha = Constants.TransitionConstants.PRESENTING_VIEW_ALPHA
+            let navigationBar = UINavigationBar()
+            viewController.view.addSubview(navigationBar)
+            let navigationItem = UINavigationItem(title: "Secondary")
+            navigationBar.pushNavigationItem(navigationItem, animated: false)
+            navigationBar.alpha = 0
+            navigationBar.translatesAutoresizingMaskIntoConstraints = false
+
+            navigationBar.topAnchor.constraintEqualToAnchor(viewController.view.topAnchor).active = true
+            navigationBar.leadingAnchor.constraintEqualToAnchor(viewController.view.leadingAnchor).active = true
+            navigationBar.trailingAnchor.constraintEqualToAnchor(viewController.view.trailingAnchor).active = true
+            barHeightConstraint = navigationBar.heightAnchor.constraintEqualToConstant(offset)
+            barHeightConstraint!.active = true
+
+
+            self.deferredViewControllerBar = navigationBar
+
+            self.view.layoutIfNeeded()
 
             UIView.animateWithDuration(
                 Constants.TransitionConstants.PRESENTATION_DURATION,
@@ -117,10 +162,14 @@ class JLOverlayViewController: UIViewController {
                 initialSpringVelocity: Constants.TransitionConstants.SPRING_VELOCITY,
                 options: UIViewAnimationOptions.CurveLinear,
                 animations: {
-                    self.primaryViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, primaryViewControllerScale, primaryViewControllerScale)
-                    self.primaryViewController.view.alpha = primaryViewControllerAlpha
+                    self.primaryViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale)
+                    self.primaryViewController.view.alpha = alpha
+                    self.primaryDismissedHeightConstraint.active = false
+                    self.primaryPresentedHeightConstraint.active = true
 
-                    self.secondaryTopConstraint.constant = secondaryViewControllerOffset
+                    self.secondaryTransitionTopConstraint?.active = false
+                    self.secondaryPresentedTopConstraint?.active = true
+
                     self.view.layoutIfNeeded()
                 },
                 completion: { _ in
@@ -131,21 +180,24 @@ class JLOverlayViewController: UIViewController {
     }
 
     func deferSecondaryViewControllerAnimated(animated: Bool, completion: ((Bool) -> Void)?) {
-        if self.secondaryViewController != nil {
+        if self.secondaryViewController !=  nil {
             isSecondaryViewControllerDeferred = true
 
             UIView.animateWithDuration(
                 Constants.TransitionConstants.DISMISSAL_DURATION,
                 animations: {
+                    self.deferredViewControllerBar?.alpha = 1
+
                     self.primaryViewController.view.transform = CGAffineTransformIdentity
                     self.primaryViewController.view.alpha = 1
-                    self.primaryHeightConstraint.constant = -Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
 
-                    self.secondaryTopConstraint.constant = self.view.bounds.height - Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
+                    self.secondaryTransitionTopConstraint?.active = false
+                    self.secondaryPresentedTopConstraint?.active = false
+                    self.secondaryDeferredTopConstraint?.active = true
 
                     self.view.layoutIfNeeded()
                 },
-                completion: nil
+                completion: completion
             )
         }
     }
@@ -154,9 +206,8 @@ class JLOverlayViewController: UIViewController {
         if self.secondaryViewController != nil {
             isSecondaryViewControllerDeferred = false
 
-            let secondaryViewControllerOffset = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET
-            let primaryViewControllerScale = Constants.TransitionConstants.PRESENTING_VIEW_SCALE
-            let primaryViewControllerAlpha = Constants.TransitionConstants.PRESENTING_VIEW_ALPHA
+            let scale = Constants.TransitionConstants.PRESENTING_VIEW_SCALE
+            let alpha = Constants.TransitionConstants.PRESENTING_VIEW_ALPHA
 
             UIView.animateWithDuration(
                 Constants.TransitionConstants.PRESENTATION_DURATION,
@@ -165,11 +216,14 @@ class JLOverlayViewController: UIViewController {
                 initialSpringVelocity: Constants.TransitionConstants.SPRING_VELOCITY,
                 options: UIViewAnimationOptions.CurveLinear,
                 animations: {
-                    self.primaryViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, primaryViewControllerScale, primaryViewControllerScale)
-                    self.primaryViewController.view.alpha = primaryViewControllerAlpha
-                    self.primaryHeightConstraint.constant = 0
+                    self.deferredViewControllerBar?.alpha = 0
 
-                    self.secondaryTopConstraint.constant = secondaryViewControllerOffset
+                    self.primaryViewController.view.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale)
+                    self.primaryViewController.view.alpha = alpha
+
+                    self.secondaryTransitionTopConstraint?.active = false
+                    self.secondaryDeferredTopConstraint?.active = false
+                    self.secondaryPresentedTopConstraint?.active = true
 
                     self.view.layoutIfNeeded()
                 },
@@ -188,16 +242,27 @@ class JLOverlayViewController: UIViewController {
                 animations: {
                     self.primaryViewController.view.transform = CGAffineTransformIdentity
                     self.primaryViewController.view.alpha = 1
-                    self.primaryHeightConstraint.constant = 0
+                    self.primaryPresentedHeightConstraint.active = false
+                    self.primaryDismissedHeightConstraint.active = true
 
-                    self.secondaryTopConstraint.constant = self.view.bounds.height
+                    self.secondaryPresentedTopConstraint?.active = false
+                    self.secondaryDeferredTopConstraint?.active = false
+                    self.secondaryTransitionTopConstraint?.active = true
+                    self.secondaryTransitionTopConstraint?.constant = self.view.bounds.height
 
                     self.view.layoutIfNeeded()
                 },
                 completion: {completed in
                     secondaryViewController.view.removeFromSuperview()
                     secondaryViewController.removeFromParentViewController()
+
                     self.secondaryViewController = nil
+                    self.deferredViewControllerBar = nil
+
+                    self.secondaryPresentedTopConstraint = nil
+                    self.secondaryDeferredTopConstraint = nil
+                    self.secondaryTransitionTopConstraint = nil
+                    self.barHeightConstraint = nil
 
                     if let completion = completion {
                         completion(completed)
@@ -212,6 +277,7 @@ class JLOverlayViewController: UIViewController {
         case .Began:
             gestureRecognizer.setTranslation(CGPointMake(0, 0), inView: self.view)
             transitionPercentComplete = 0
+
         case .Changed:
             let translation = gestureRecognizer.translationInView(view)
             let percentage = translation.y / (self.view.bounds.height - (2 * Constants.TransitionConstants.PRESENTED_VIEW_OFFSET))
@@ -243,8 +309,14 @@ class JLOverlayViewController: UIViewController {
         let targetAlpha: CGFloat = Constants.TransitionConstants.PRESENTING_VIEW_ALPHA
         let alpha = targetAlpha + (1 - targetAlpha) * percentComplete
         primaryViewController.view.alpha = alpha
-
+        
         let offset = (self.view.bounds.height - (2 * Constants.TransitionConstants.PRESENTED_VIEW_OFFSET)) * percentComplete
-        secondaryTopConstraint.constant = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET + offset
+        secondaryTransitionTopConstraint?.constant = Constants.TransitionConstants.PRESENTED_VIEW_OFFSET + offset
+        
+        self.secondaryPresentedTopConstraint?.active = false
+        self.secondaryDeferredTopConstraint?.active = false
+        self.secondaryTransitionTopConstraint?.active = true
+        
+        self.view.layoutIfNeeded()
     }
 }
